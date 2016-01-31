@@ -19,7 +19,8 @@
     ],
     "require": {
         "php": ">=5.5.9",
-        "guzzlehttp/guzzle": "^5.3|^6.0"
+        "guzzlehttp/guzzle": "^5.3|^6.0",
+        "phpmailer/phpmailer": "~5.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8|^5.0"
@@ -49,7 +50,8 @@
         "notifymehq/support": "self.version",
         "notifymehq/twilio": "self.version",
         "notifymehq/webhook": "self.version",
-        "notifymehq/yo": "self.version"
+        "notifymehq/yo": "self.version",
+        "notifymehq/email": "self.version"
     },
     "config": {
         "preferred-install": "dist"
