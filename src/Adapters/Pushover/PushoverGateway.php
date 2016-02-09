@@ -124,7 +124,7 @@ class PushoverGateway implements GatewayInterface
                 'Accept'       => 'application/json',
                 'Content-Type' => 'application/x-www-form-urlencoded',
             ],
-            'body' => $params,
+            'form_params' => $params,
         ]);
 
         if (substr((string) $rawResponse->getStatusCode(), 0, 1) === '2') {
