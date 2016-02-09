@@ -26,7 +26,7 @@ class WebhookFactory implements FactoryInterface
      */
     public function make(array $config)
     {
-        Arr::requires($config, ['endpoint']);
+        Arr::requires($config, ['endpoint','format','params']);
 
         $client = new Client();
 

@@ -44,7 +44,14 @@ class WebhookGateway implements GatewayInterface
      */
     public function notify($to, $message)
     {
-        return $this->send($this->buildUrlFromString(), ['to' => $to, 'message' => $message]);
+        $params = $this->config['params'];
+        if(!isset($params['message'])){
+            $params['message'] = $message;    
+        }
+        if(!isset($params['to'])){
+            $params['to'] = $to;
+        }
+        return $this->send($this->buildUrlFromString(),$params);
     }
 
     /**
@@ -59,15 +66,19 @@ class WebhookGateway implements GatewayInterface
     {
         $success = false;
 
+        $format =  'form_params';
+        $headers['Accept'] = 'application/json';
+        if ($this->config['format'] == 'json'){
+            $format = 'json';
+            $headers['Content-Type'] = 'application/json';
+        }
+
         $rawResponse = $this->client->post($url, [
             'exceptions'      => false,
             'timeout'         => '80',
             'connect_timeout' => '30',
-            'headers'         => [
-                'Accept'       => 'application/json',
-                'Content-Type' => 'application/json',
-            ],
-            'json' => $params,
+            'headers'         => $headers,
+            $format => $params,
         ]);
 
         $response = [];
