@@ -20,6 +20,7 @@ class EmailFactory implements FactoryInterface
         Arr::requires($config, ['smtp','user','pass','subject']);
         $client = new PHPMailer();
         $client->isSMTP();
+        $client->CharSet = 'UTF-8';
         $client->Host = Arr::get($config,'smtp');
         $client->SMTPAuth = Arr::get($config,'smtp_auth',true);
         $client->Username = Arr::get($config,'user');
