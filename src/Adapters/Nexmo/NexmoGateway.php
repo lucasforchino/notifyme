@@ -91,10 +91,8 @@ class NexmoGateway implements GatewayInterface
 
         if (substr((string) $rawResponse->getStatusCode(), 0, 1) === '2') {
             $response = json_decode($rawResponse->getBody(), true);
-            $success = true;
-        } else {
-            $response = $this->responseError($rawResponse);
-        }
+            $success = isset($response['messages'][0]['message-id']);
+        } 
 
         return $this->mapResponse($success, $response);
     }
@@ -111,7 +109,7 @@ class NexmoGateway implements GatewayInterface
     {
         return (new Response())->setRaw($response)->map([
             'success' => $success,
-            'message' => $success ? json_encode($response) : $response['message']
+            'message' => json_encode($response)
         ]);
     }
 
