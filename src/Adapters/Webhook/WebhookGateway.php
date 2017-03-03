@@ -83,8 +83,14 @@ class WebhookGateway implements GatewayInterface
 
         $response = [];
 
-        if (substr((string) $rawResponse->getStatusCode(), 0, 1) === '2') {
-            $success = true;
+        $hitIsSent = isset($this->config['hitIsSent']) ? $this->config['hitIsSent'] : false;
+
+        $ok = substr((string) $rawResponse->getStatusCode(), 0, 1) === '2';
+
+        $success = $hitIsSent || $ok;
+
+        if($ok) {
+            $response['status'] = (string) $rawResponse->getStatusCode();
         } else {
             $response['error'] = 'Webhook delivery failed with status code '.$rawResponse->getStatusCode();
         }
