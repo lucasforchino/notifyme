@@ -45,12 +45,6 @@ class WebhookGateway implements GatewayInterface
     public function notify($to, $message)
     {
         $params = $this->config['params'];
-        if(!isset($params['message'])){
-            $params['message'] = $message;    
-        }
-        if(!isset($params['to'])){
-            $params['to'] = $to;
-        }
         return $this->send($this->buildUrlFromString(),$params);
     }
 
